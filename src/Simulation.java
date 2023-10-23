@@ -1,21 +1,30 @@
-import java.util.ArrayList;
-
+import java.util.HashMap;
 public class Simulation {
+    HashMap<String, State> states;
+    double infectionRate;
+    double mortalityRate;
 
-    ArrayList<State> states;
-    ArrayList<Shape> shapes;
+    public void Simulation(String filePath){
 
-    public void update(int days){
-        for(int i=0; i<days; i++){
-            for (State state : states){
-                state.infectNeighbors();
-            }
-            for (State state : states){
-                state.update();
-            }
-            for (Shape shape : shapes){
-                shape.update();
-            }
-        }
+    }
+
+    public void simulate(int steps){
+
+    }
+
+    public double getPercentInfected(String stateName){
+        return 0;
+    }
+
+    private void stateToNeighborInfections(){
+
+    }
+
+    private void stateToSelfInfections(){
+
+    }
+
+    private void stateToSelfDeaths(){
+
     }
 }
