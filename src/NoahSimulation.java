@@ -1,7 +1,3 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.HashMap;
-import java.util.Scanner;
 import javax.swing.*;
 import java.awt.*;
 
@@ -48,37 +44,13 @@ import java.awt.*;
  * 						JPanel.setLayout ( new FLowLayout ( FlowLayout."POSITION" );
  * 						"POSITION" in FlowLayout can be either RIGHT, LEFT, or CENTER in all capitalization
  */
-public class GUI extends JPanel {
-    HashMap<String,VisualObject> visuals;
-    Simulation simulation;
+public class NoahSimulation extends JPanel {
     private Image mapImage;
     private JPanel labelsPanel;
 
-    /**
-    public GUI(String filePath) {
-        this.simulation = new Simulation(filePath);
-
-        this.visuals = new HashMap<String, VisualObject>();
-        Scanner sc = safeOpen(filePath);
-
-        while (sc.hasNextLine()) {
-            String ln = sc.nextLine();
-            if (!ln.isEmpty()){
-                String[] pair = ln.split(":",2);
-                switch (pair[0]){
-                    case "Visual":
-                        String name = pair[1];
-                        VisualObject visual = new VisualObject(sc);
-                        visuals.put(name,visual);
-                        break;
-                }
-            }
-        }
-    }**/
-
-    public GUI() {
+    public NoahSimulation() {
         // Load an image of the United States and assign it to mapImage for later display
-        ImageIcon imageIcon = new ImageIcon("./map.png");
+        ImageIcon imageIcon = new ImageIcon("//C:////Users////prove////OneDrive////Pictures////united_states.png");
         mapImage = imageIcon.getImage();
 
 
@@ -89,42 +61,6 @@ public class GUI extends JPanel {
         //setPreferredSize(preferredSize);//preferredSize);
 
     }
-
-    private Scanner safeOpen(String filePath){
-        File file = new File(filePath);
-
-        Scanner sc = null;
-
-        try {
-            sc = new Scanner(file);
-        }
-        catch (FileNotFoundException e) {
-            e.printStackTrace();
-            System.exit(1);
-        }
-
-        return sc;
-    }
-
-    private void startSimulation() {
-
-    }
-
-    private void endSimulation() {
-
-    }
-
-    private void incrementMonth() {
-
-    }
-
-    public String toString(){
-        String str = "{";
-        str += String.valueOf(visuals) + ", " + String.valueOf(simulation);
-        str += "}";
-        return str;
-    }
-
 
     // the painComponenet(Graphics g) method in in the ImageIcon class. It simply displays the image
     @Override
@@ -147,13 +83,27 @@ public class GUI extends JPanel {
             y += 20;
         }
     }
+
+    private void startSimulation() {
+
+    }
+
+    private void endSimulation() {
+
+    }
+
+    private void incrementMonth() {
+
+    }
+
+
     public static void main(String[] args) {
         // instance of simulation class
-        GUI gui = new GUI();
+        NoahSimulation simulation = new NoahSimulation();
         // create an instance of JFrame called "United States Map"
         JFrame jframe = new JFrame("United States Map");
         // add a new simulation so the simulation class is the content of the jframe
-        jframe.add(new GUI());
+        jframe.add(new NoahSimulation());
 
 
 
@@ -187,9 +137,9 @@ public class GUI extends JPanel {
 
 
         // add action listeners to the buttons
-        startButton.addActionListener(e1 -> gui.startSimulation());
-        endButton.addActionListener(e2 -> gui.endSimulation());
-        incrementButton.addActionListener(e3 -> gui.incrementMonth());
+        startButton.addActionListener(e1 -> simulation.startSimulation());
+        endButton.addActionListener(e2 -> simulation.endSimulation());
+        incrementButton.addActionListener(e3 -> simulation.incrementMonth());
         exitButton.addActionListener(e4 -> System.exit(0));
 
 
@@ -214,4 +164,7 @@ public class GUI extends JPanel {
         jframe.setVisible(true);
 
     }
+
+
+
 }
