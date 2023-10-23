@@ -4,7 +4,8 @@ public class GUI {
     HashMap<String,VisualObject> visuals;
     Simulation simulation;
 
-    public void GUI(String filePath) {
+    public GUI(String filePath) {
+        simulation = new Simulation(filePath);
     }
 
     public void start(){

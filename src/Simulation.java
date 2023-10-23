@@ -4,7 +4,7 @@ public class Simulation {
     double infectionRate;
     double mortalityRate;
 
-    public void Simulation(String filePath){
+    public Simulation(String filePath){
 
     }
 

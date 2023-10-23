@@ -5,7 +5,7 @@ public class State {
     ArrayList<String> neighbors;
     private int pushed;
 
-    public void State(int population, ArrayList<String> neighbors){
+    public State(int population, ArrayList<String> neighbors){
 
     }
 
