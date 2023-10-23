@@ -1,11 +1,16 @@
-import java.util.ArrayList;
+import java.util.Scanner;
 public class State {
     int population;
     int infected;
-    ArrayList<String> neighbors;
+    String[] neighbors;
     private int pushed;
 
-    public State(int population, ArrayList<String> neighbors){
+    public State(Scanner sc){
+        this.population = sc.nextInt();
+        sc.nextLine();
+        this.neighbors = sc.nextLine().split(",");
+        this.infected = 0;
+        this.pushed = 0;
 
     }
 
@@ -19,5 +24,15 @@ public class State {
 
     public void updateInfected(){
 
+    }
+
+    public String toString(){
+        String str = "{";
+        str += String.valueOf(population) +", " + String.valueOf(infected);
+        for (String n : neighbors){
+            str += ", " + n;
+        }
+        str += "}";
+        return str;
     }
 }
