@@ -76,12 +76,13 @@ public class GUI extends JPanel {
         }
     }**/
 
+    //construct from file
     public GUI() {
         // Load an image of the United States and assign it to mapImage for later display
         ImageIcon imageIcon = new ImageIcon("./map.png");
         mapImage = imageIcon.getImage();
 
-
+        //construct visualObjects
 
         // mapImage.getWidth(null) returns the width of the image; null being passed as a argument means it will use the observer
         // mapImage.getHeight(null) returns the height of the image; similarly, since null is passed as an argument it will also use the observer
@@ -90,39 +91,20 @@ public class GUI extends JPanel {
 
     }
 
-    private Scanner safeOpen(String filePath){
-        File file = new File(filePath);
-
-        Scanner sc = null;
-
-        try {
-            sc = new Scanner(file);
-        }
-        catch (FileNotFoundException e) {
-            e.printStackTrace();
-            System.exit(1);
-        }
-
-        return sc;
-    }
-
     private void startSimulation() {
-
+        //construct simulation class
     }
 
     private void endSimulation() {
-
+        //delete simulation class
     }
 
     private void incrementMonth() {
+        simulation.incrementMonth();
 
-    }
-
-    public String toString(){
-        String str = "{";
-        str += String.valueOf(visuals) + ", " + String.valueOf(simulation);
-        str += "}";
-        return str;
+        //loop through states
+            //call simulation.getPercentInfected(name)
+            //call the visual object update method
     }
 
 
@@ -202,16 +184,11 @@ public class GUI extends JPanel {
 
 
 
-
-
-
-
         // "frame.setExtendedState(JFrame.MAXIMIZED_BOTH)" forces the width and height to be full screen
         jframe.setExtendedState(JFrame.MAXIMIZED_BOTH);
         //frame.setUndecorated(true); // if wanted, could remove boarder
 
         // run the frame of existing simulations
         jframe.setVisible(true);
-
     }
 }

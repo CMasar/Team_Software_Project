@@ -1,15 +1,14 @@
-import java.util.Scanner;
+
 public class VisualObject {
-    Object graphicalObject;
+    Object graphicalObject; //the rectangle
 
-    public VisualObject(Scanner sc){
-        graphicalObject = sc.nextLine();
-    }
-    public void update(double percentInfected){
-        System.out.println(graphicalObject);
+
+    //pass the location and size parameters into here
+    //later they will be imported from a file
+    public VisualObject(){
     }
 
-    public String toString(){
-        return String.valueOf(graphicalObject);
+    //GUI class calls this method on each visualObject
+    public void updateColor(double percentInfected){
     }
 }
