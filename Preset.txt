@@ -1,0 +1,29 @@
+Simulation:
+infectionRate = 2
+mortalityRate = 1
+
+
+State: Michigan
+population = 10,500,000
+infected = 0
+neighbors = Ohio, Indiana
+
+State: Ohio
+population =  11780000
+infected = 1
+neighbors = Michigan, Indiana
+
+
+State: Indiana
+population = 6,806000
+infected = 0
+neighbors = Michigan, Ohio
+
+
+GUI:
+mapFilePath = ......
+
+
+VisualObject:
+parameter = .....
+location = ....
