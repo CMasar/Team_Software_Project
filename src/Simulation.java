@@ -233,7 +233,7 @@ public class Simulation extends JPanel {
 
             // Skip if region is already infected.
             if(region.infected > 0) continue;
-            if(regionSpread.get(regionName) != null && regionSpread.get(regionName) > 0) continue;
+            if(regionSpread.get(regionName) != null) continue;
             
             // Applying spead to region.
             region.infected = regionSpread.get(regionName);
