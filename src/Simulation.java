@@ -184,7 +184,9 @@ public class Simulation extends JPanel {
     }
 
     void updateInfected() {
+        // Looping through all regions.
         for(Region region : regions.values()) {
+            // Updating number of infected in region, max value being the population size.
             region.infected = region.infected * virus.r0;
             if(region.infected > region.population) region.infected = region.population;
         }
@@ -192,6 +194,7 @@ public class Simulation extends JPanel {
     }
 
     void updateDead() {
+        // Looping through all regions.
         for(Region region : regions.values()) {
 
         }
@@ -199,16 +202,44 @@ public class Simulation extends JPanel {
     }
 
     void updateSpread() {
+        // Stores the spread to be applied at once.
         HashMap<String, Integer> regionSpread = new HashMap<>();
-
+        
+        // Looping through all regions, calculating the spread.
+        String regionName;
         for(Region region : regions.values()) {
+            regionName = region.regionName; 
+            
+            // Skip if region is already infected.
             if(region.infected > 0) continue;
 
-            for(String neighbor : region.neighbors) {
+            // Looping through all of a region's neighbors.
+            Region neighbor;
+            for(String neighborName : region.neighbors) {
+                neighbor = regions.get(neighborName); // Getting a neighbor.
+                if(neighbor.infected <= 0) continue; // Skip if neighbor has no infected.
                 
+                // Calculating and Storing spread.
+                if(regionSpread.get(regionName) == null) regionSpread.put(regionName, 0);
+                int spread = regionSpread.get(regionName) + 100 * (neighbor.infected/neighbor.population);
+                regionSpread.put(regionName, spread);
+
             }
+        }
+
+        // Lopping through all regions, applying the spead.
+        for(Region region : regions.values()) {
+            regionName = region.regionName;
+
+            // Skip if region is already infected.
+            if(region.infected > 0) continue;
+            if(regionSpread.get(regionName) != null && regionSpread.get(regionName) > 0) continue;
+            
+            // Applying spead to region.
+            region.infected = regionSpread.get(regionName);
 
         }
+
 
     }
 
