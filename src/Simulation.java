@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashMap;
 
 
 /*
@@ -48,6 +49,9 @@ public class Simulation extends JPanel {
     private Image mapImage;
     private JPanel labelsPanel;
     private int currentMonth = 0;
+
+    private HashMap<String, Region> regions;
+    private Virus virus;
 
     public Simulation() {
         // Load an image of the United States and assign it to mapImage for later display
@@ -171,6 +175,42 @@ public class Simulation extends JPanel {
 
     }
 
+    void updateSimulation() {
+
+        updateInfected();
+        //updateDead();
+        updateSpread();
+
+    }
+
+    void updateInfected() {
+        for(Region region : regions.values()) {
+            region.infected = region.infected * virus.r0;
+            if(region.infected > region.population) region.infected = region.population;
+        }
+
+    }
+
+    void updateDead() {
+        for(Region region : regions.values()) {
+
+        }
+
+    }
+
+    void updateSpread() {
+        HashMap<String, Integer> regionSpread = new HashMap<>();
+
+        for(Region region : regions.values()) {
+            if(region.infected > 0) continue;
+
+            for(String neighbor : region.neighbors) {
+                
+            }
+
+        }
+
+    }
 
 
 }

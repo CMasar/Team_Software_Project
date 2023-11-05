@@ -1,11 +1,15 @@
 import java.util.Scanner;
-public class State {
+public class Region {
+    String regionName;
     int population;
     int infected;
+    int dead;
+    int immune;
+   
     String[] neighbors;
 
     //constructed from file
-    public State(Scanner sc){
+    public Region(Scanner sc){
         try{
             this.population = Integer.parseInt(sc.nextLine().split("=")[1].trim().replace(",",""));
             this.infected = Integer.parseInt(sc.nextLine().split("=")[1].trim().replace(",",""));
