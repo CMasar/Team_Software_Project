@@ -101,7 +101,7 @@ public class Simulation extends JPanel {
 
     }
 
-    private void incrementMonth() {
+    public void incrementMonth() {
     	currentMonth++;
     	repaint();
     }
