@@ -49,93 +49,61 @@ import java.awt.*;
  * 						"POSITION" in FlowLayout can be either RIGHT, LEFT, or CENTER in all capitalization
  */
 public class GUI extends JPanel {
+    String presetFilePath;
     HashMap<String,VisualObject> visuals;
     Simulation simulation;
     private Image mapImage;
+
     private JPanel labelsPanel;
 
-    /**
-    public GUI(String filePath) {
-        this.simulation = new Simulation(filePath);
+    private int currentMonth = 0;
 
-        this.visuals = new HashMap<String, VisualObject>();
-        Scanner sc = safeOpen(filePath);
 
-        while (sc.hasNextLine()) {
-            String ln = sc.nextLine();
-            if (!ln.isEmpty()){
-                String[] pair = ln.split(":",2);
-                switch (pair[0]){
-                    case "Visual":
-                        String name = pair[1];
-                        VisualObject visual = new VisualObject(sc);
-                        visuals.put(name,visual);
-                        break;
+    public GUI(String presetFilePath) {
+        this.presetFilePath = presetFilePath;
+        visualConstruction();
+
+
+        visuals = new HashMap<String,VisualObject>();
+
+        File presetFile = new File(this.presetFilePath);
+        try{
+            Scanner sc = new Scanner(presetFile);
+            while (sc.hasNextLine()){
+                String[] header = sc.nextLine().split(":");
+                switch (header[0].trim().toLowerCase()){
+                    case "gui" -> {
+                        //no specific parameters here
+                    }
+                    case "visual" -> {
+                        //construct a visual object and put it in the has map
+                        String stateName = header[1].trim().toLowerCase();
+                        visuals.put(stateName,new VisualObject(sc));
+                    }
                 }
             }
+        } catch (FileNotFoundException e){
+            //invalid file path causes program to exit
+            System.out.println("Invalid File Path");
+            System.exit(1);
+        } catch (Exception e){
+            //invalid preset syntax causes program to exit
+            System.out.println("Invalid Preset Syntax");
+            System.exit(1);
         }
-    }**/
 
-    //construct from file
-    public GUI() {
+    }
+
+    //construct the visual aspects of the object
+    private void visualConstruction(){
         // Load an image of the United States and assign it to mapImage for later display
         ImageIcon imageIcon = new ImageIcon("./map.png");
         mapImage = imageIcon.getImage();
 
-        //construct visualObjects
-
-        // mapImage.getWidth(null) returns the width of the image; null being passed as a argument means it will use the observer
-        // mapImage.getHeight(null) returns the height of the image; similarly, since null is passed as an argument it will also use the observer
-        //Dimension preferredSize = new Dimension(mapImage.getWidth(null), mapImage.getHeight(null));
-        //setPreferredSize(preferredSize);//preferredSize);
-
-    }
-
-    private void startSimulation() {
-        //construct simulation class
-    }
-
-    private void endSimulation() {
-        //delete simulation class
-    }
-
-    private void incrementMonth() {
-        simulation.incrementMonth();
-
-        //loop through states
-            //call simulation.getPercentInfected(name)
-            //call the visual object update method
-    }
-
-
-    // the painComponenet(Graphics g) method in in the ImageIcon class. It simply displays the image
-    @Override
-    public void paintComponent(Graphics g) {
-        // super.painComponent(g) is important because it ensures that all painting components that are not
-        // expressly defined in the method can be delt by the parent class's paintComponent(Graphics g) method
-        super.paintComponent(g);
-        // draw the image mapImage at coordinates (0,0). This refers to the current instance of the panel
-        g.drawImage(mapImage, 0, 0, this);
-
-
-        // Define the position for the text boxes.
-        int x = getWidth() - 330;
-        int y = 20;
-
-        // draw numbered text boxes in the top right corner.
-        for (int i = 1; i <= 10; i++) {
-            g.drawString(i + ". ...", x, y);
-            // push the text box 20 pixels down
-            y += 20;
-        }
-    }
-    public static void main(String[] args) {
-        // instance of simulation class
-        GUI gui = new GUI();
         // create an instance of JFrame called "United States Map"
         JFrame jframe = new JFrame("United States Map");
         // add a new simulation so the simulation class is the content of the jframe
-        jframe.add(new GUI());
+        jframe.add(this);
 
 
 
@@ -169,9 +137,9 @@ public class GUI extends JPanel {
 
 
         // add action listeners to the buttons
-        startButton.addActionListener(e1 -> gui.startSimulation());
-        endButton.addActionListener(e2 -> gui.endSimulation());
-        incrementButton.addActionListener(e3 -> gui.incrementMonth());
+        startButton.addActionListener(e1 -> this.startSimulation());
+        endButton.addActionListener(e2 -> this.endSimulation());
+        incrementButton.addActionListener(e3 -> this.incrementMonth());
         exitButton.addActionListener(e4 -> System.exit(0));
 
 
@@ -190,5 +158,49 @@ public class GUI extends JPanel {
 
         // run the frame of existing simulations
         jframe.setVisible(true);
+    }
+
+    // the painComponenet(Graphics g) method in in the ImageIcon class. It simply displays the image
+    @Override
+    public void paintComponent(Graphics g) {
+        // super.painComponent(g) is important because it ensures that all painting components that are not
+        // expressly defined in the method can be handled by the parent class's paintComponent(Graphics g) method
+        super.paintComponent(g);
+        // draw the image mapImage at coordinates (0,0). This refers to the current instance of the panel
+        g.drawImage(mapImage, 0, 0, this);
+
+
+        // Define the position for the text boxes.
+        int x = getWidth() - 330;
+        int y = 20;
+
+        // draw numbered text boxes in the top right corner.
+        for (int i = 1; i <= 10; i++) {
+            g.drawString(i + ". ...", x, y);
+            // push the text box 20 pixels down
+            y += 20;
+        }
+
+        g.drawString("Current Month: " + currentMonth, getWidth() - 450, 20);
+    }
+
+
+    private void startSimulation() {
+        simulation = new Simulation(presetFilePath);
+    }
+
+    private void endSimulation() {
+        //delete simulation class
+    }
+
+    private void incrementMonth() {
+        currentMonth++;
+        repaint();
+    }
+
+    public static void main(String[] args) {
+        // instance of simulation class
+//        GUI gui = new GUI("./Preset.txt");
+        Simulation s = new Simulation("./Preset.txt");
     }
 }
