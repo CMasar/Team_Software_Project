@@ -200,7 +200,6 @@ public class GUI extends JPanel {
 
     public static void main(String[] args) {
         // instance of simulation class
-//        GUI gui = new GUI("./Preset.txt");
-        Simulation s = new Simulation("./Preset.txt");
+        GUI gui = new GUI("./Preset.txt");
     }
 }
