@@ -4,6 +4,7 @@ public class Response {
     int cureDevelopmentTime;
     int rateOfVaccination;
     public Response(Scanner sc){
+        //construct from file
         try{
             int flag = 0;
             for (int i =0; i<numParameters; i++){
@@ -11,7 +12,7 @@ public class Response {
                 String[] line = sc.nextLine().split("=");
                 String name = line[0].trim();
                 String value = line[0].trim();
-                switch (name.toLowerCase()) { //switch on name
+                switch (name.toLowerCase()) { //switch on name of parameter
                     case "cure development time":
                         this.cureDevelopmentTime = Integer.parseInt(value);
                         flag = flag | 1;

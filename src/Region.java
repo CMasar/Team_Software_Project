@@ -11,6 +11,7 @@ public class Region {
 
     //constructed from file
     public Region(Scanner sc){
+        //construct from file
         try{
             int flag = 0;
             for (int i =0; i<numParameters; i++){
@@ -18,7 +19,7 @@ public class Region {
                 String[] line = sc.nextLine().split("=");
                 String name = line[0].trim();
                 String value = line[1].trim();
-                switch (name.toLowerCase()) { //switch on name
+                switch (name.toLowerCase()) { //switch on name of parameter
                     case "population":
                         this.population = Integer.parseInt(value.replace(",",""));
                         flag = flag | 1;

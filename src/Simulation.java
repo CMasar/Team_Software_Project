@@ -13,6 +13,7 @@ public class Simulation extends JPanel {
     Simulation(String presetFilePath){
         regions = new HashMap<String,Region>();
 
+        //construct from file
         File presetFile = new File(presetFilePath);
         try{
             Scanner sc = new Scanner(presetFile);

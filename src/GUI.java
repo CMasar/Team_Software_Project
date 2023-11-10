@@ -63,9 +63,10 @@ public class GUI extends JPanel {
         this.presetFilePath = presetFilePath;
         visualConstruction();
 
-
+        //rectangles
         visuals = new HashMap<String,VisualObject>();
 
+        //construct from file
         File presetFile = new File(this.presetFilePath);
         try{
             Scanner sc = new Scanner(presetFile);
