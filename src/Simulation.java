@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 
-public class Simulation extends JPanel {
+public class Simulation {
     private HashMap<String, Region> regions;
     private Virus virus;
 

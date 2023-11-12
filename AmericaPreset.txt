@@ -1,17 +1,18 @@
 GUI:
+map path = ./America.png
 
 Simulation:
 
-State: Michigan
+Region: Michigan
 population = 10,500,000
 neighbors = Ohio, Indiana
 
-State: Ohio
+Region: Ohio
 population =  11780000
 infected = 1
 neighbors = Michigan, Indiana
 
-State: Indiana
+Region: Indiana
 population = 6,806000
 neighbors = Michigan, Ohio
 
@@ -20,3 +21,11 @@ r0 = 2
 mortality rate = 2
 duration = 20
 immunity = False
+
+Visual: Michigan
+x = 500
+y = 500
+width = 20
+height = 20
+
+//todo: put more visuals and make them accurate

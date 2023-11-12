@@ -1,17 +1,18 @@
 import java.util.Scanner;
 public class Response {
-    final static int numParameters = 2;
+    final static int requiredParameters = 2;
     int cureDevelopmentTime;
     int rateOfVaccination;
     public Response(Scanner sc){
         //construct from file
         try{
             int flag = 0;
-            for (int i =0; i<numParameters; i++){
+            read:
+            while (sc.hasNextLine()){
                 //read lines of form "name = value"
                 String[] line = sc.nextLine().split("=");
                 String name = line[0].trim();
-                String value = line[0].trim();
+                String value = (line.length>1) ? line[1].trim() : "";
                 switch (name.toLowerCase()) { //switch on name of parameter
                     case "cure development time":
                         this.cureDevelopmentTime = Integer.parseInt(value);
@@ -21,11 +22,13 @@ public class Response {
                         this.rateOfVaccination = Integer.parseInt(value);
                         flag = flag | 2;
                         break;
+                    case "":
+                        break read;
                     default: throw new Exception();
                 }
             }
             //check that everything has been initialized
-            if (!(flag == (Math.pow(2,numParameters)-1))){
+            if (!(flag == (Math.pow(2, requiredParameters)-1))){
                 throw new Exception();
             }
         } catch (Exception e){

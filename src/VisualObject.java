@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class VisualObject {
-    final static int numParameters = 3;
+    final static int requiredParameters = 4;
     int x;
     int y;
     int width;
@@ -12,11 +12,12 @@ public class VisualObject {
         //read parameters from file
         try{
             int flag = 0;
-            for (int i =0; i<numParameters; i++){
+            read:
+            while(sc.hasNextLine()){
                 //read lines of form "name = value"
                 String[] line = sc.nextLine().split("=");
                 String name = line[0].trim();
-                String value = line[1].trim();
+                String value = (line.length>1) ? line[1].trim() : "";
                 switch (name.toLowerCase()) { //switch on name
                     case "x":
                         this.x = Integer.parseInt(value);
@@ -34,11 +35,13 @@ public class VisualObject {
                         this.height = Integer.parseInt(value);
                         flag = flag | 8;
                         break;
+                    case "":
+                        break read;
                     default: throw new Exception();
                 }
             }
             //check that everything has been initialized
-            if (!(flag == (Math.pow(2,numParameters)-1))){
+            if (!(flag == (Math.pow(2, requiredParameters)-1))){
                 throw new Exception();
             }
         } catch (Exception e){

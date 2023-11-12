@@ -53,6 +53,7 @@ public class GUI extends JPanel {
     HashMap<String,VisualObject> visuals;
     Simulation simulation;
     private Image mapImage;
+    private String mapPath;
 
     private JPanel labelsPanel;
 
@@ -61,7 +62,6 @@ public class GUI extends JPanel {
 
     public GUI(String presetFilePath) {
         this.presetFilePath = presetFilePath;
-        visualConstruction();
 
         //rectangles
         visuals = new HashMap<String,VisualObject>();
@@ -74,7 +74,7 @@ public class GUI extends JPanel {
                 String[] header = sc.nextLine().split(":");
                 switch (header[0].trim().toLowerCase()){
                     case "gui" -> {
-                        //no specific parameters here
+                        visualConstruction(sc);
                     }
                     case "visual" -> {
                         //construct a visual object and put it in the has map
@@ -96,9 +96,24 @@ public class GUI extends JPanel {
     }
 
     //construct the visual aspects of the object
-    private void visualConstruction(){
+    private void visualConstruction(Scanner sc){
+        try{
+            String[] line = sc.nextLine().split("=");
+            String name = line[0].trim();
+            String value = line[1].trim();
+            if (name.toLowerCase().equals("map path")){
+                this.mapPath = value;
+            } else {
+                throw new Exception();
+            }
+        } catch (Exception e){
+            System.out.println("Invalid Preset Syntax");
+            e.printStackTrace();
+            System.exit(1);
+        }
+
         // Load an image of the United States and assign it to mapImage for later display
-        ImageIcon imageIcon = new ImageIcon("./map.png");
+        ImageIcon imageIcon = new ImageIcon(mapPath);
         mapImage = imageIcon.getImage();
 
         // create an instance of JFrame called "United States Map"
@@ -201,6 +216,7 @@ public class GUI extends JPanel {
 
     public static void main(String[] args) {
         // instance of simulation class
-        GUI gui = new GUI("./Preset.txt");
+//        GUI gui = new GUI("./AmericaPreset.txt");
+        GUI gui = new GUI("./EuropePreset.txt");
     }
 }
