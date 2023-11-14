@@ -1,20 +1,22 @@
 GUI:
-map path = ./America.png
+map path = ./images/Europe.png
 
 Simulation:
 
-Region: Michigan
+Region: United Kingdom
 population = 10,500,000
-neighbors = Ohio, Indiana
+neighbors = Ireland, France
 
-Region: Ohio
+Region: Ireland
 population =  11780000
 infected = 1
-neighbors = Michigan, Indiana
+neighbors = United Kingdom
 
-Region: Indiana
+Region: France
 population = 6,806000
-neighbors = Michigan, Ohio
+neighbors = United Kingdom
+
+//todo: put in the rest of the countries
 
 Virus:
 r0 = 2
@@ -22,10 +24,11 @@ mortality rate = 2
 duration = 20
 immunity = False
 
-Visual: Michigan
+Visual: United Kingdom
 x = 500
 y = 500
 width = 20
 height = 20
+
 
 //todo: put more visuals and make them accurate
