@@ -45,7 +45,6 @@ public class Simulation {
     }
 
     void updateSimulation() {
-
         updateInfected();
         //updateDead();
         updateSpread();
@@ -104,11 +103,11 @@ public class Simulation {
             
             // Applying spead to region.
             region.infected = regionSpread.get(regionName);
-
         }
-
-
     }
 
+    public HashMap<String,Region> getRegions(){
+        return (HashMap<String, Region>) regions.clone();
+    }
 
 }

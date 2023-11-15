@@ -1,4 +1,5 @@
 import java.util.Scanner;
+
 public class Region {
     final static int requiredParameters = 2;
     int population;
