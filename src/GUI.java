@@ -1,9 +1,11 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.nio.MappedByteBuffer;
 import java.util.HashMap;
 import java.util.Scanner;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 
 /*
@@ -49,164 +51,90 @@ import java.awt.*;
  * 						"POSITION" in FlowLayout can be either RIGHT, LEFT, or CENTER in all capitalization
  */
 public class GUI extends JPanel {
-    String presetFilePath;
-    HashMap<String,VisualObject> visuals;
-    Simulation simulation;
-    private Image mapImage;
-    private String mapPath;
+    private String presetFilePath;
 
-    private JPanel labelsPanel;
+    private Simulation simulation;
+    private HashMap<String,VisualObject> visuals;
+
+    private JFrame mainFrame;
+    private JPanel buttonPanel;
+    private JPanel mapPanel;
 
     private int currentMonth = 0;
 
 
     public GUI(String presetFilePath) {
         this.presetFilePath = presetFilePath;
+        mainFrame = new JFrame("Viral Simulation");
+        buttonPanel = new JPanel();
 
-        //rectangles
-        visuals = new HashMap<String,VisualObject>();
+        simulation = new Simulation(presetFilePath); // Creating instance of Simulation class.
+        visuals = new HashMap<String,VisualObject>(); // Stores visual representations of sim data.
 
-        //construct from file
-        File presetFile = new File(this.presetFilePath);
-        try{
-            Scanner sc = new Scanner(presetFile);
-            while (sc.hasNextLine()){
-                String[] header = sc.nextLine().split(":");
-                switch (header[0].trim().toLowerCase()){
-                    case "gui" -> {
-                        visualConstruction(sc);
-                    }
-                    case "visual" -> {
-                        //construct a visual object and put it in the has map
-                        String stateName = header[1].trim().toLowerCase();
-                        visuals.put(stateName,new VisualObject(sc));
-                    }
-                }
-            }
-        } catch (FileNotFoundException e){
-            //invalid file path causes program to exit
-            System.out.println("Invalid File Path");
-            System.exit(1);
-        } catch (Exception e){
-            //invalid preset syntax causes program to exit
-            System.out.println("Invalid Preset Syntax");
-            System.exit(1);
-        }
+        loadFromFile();
+        buildButtonPanel();
+        buildFrame();
 
     }
 
-    //construct the visual aspects of the object
-    private void visualConstruction(Scanner sc){
-        try{
-            String[] line = sc.nextLine().split("=");
-            String name = line[0].trim();
-            String value = line[1].trim();
-            if (name.toLowerCase().equals("map path")){
-                this.mapPath = value;
-            } else {
-                throw new Exception();
-            }
-        } catch (Exception e){
-            System.out.println("Invalid Preset Syntax");
-            e.printStackTrace();
-            System.exit(1);
-        }
 
-        // Load an image of the United States and assign it to mapImage for later display
-        ImageIcon imageIcon = new ImageIcon(mapPath);
-        mapImage = imageIcon.getImage();
+    //
+    // -- Build methods for main frame and panels.
+    //
 
-        // create an instance of JFrame called "United States Map"
-        JFrame jframe = new JFrame("United States Map");
-        // add a new simulation so the simulation class is the content of the jframe
-        jframe.add(this);
+    private void buildFrame() {
+        mainFrame.setLayout(new BorderLayout());
+        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mainFrame.setBounds(128, 128, 1200, 500);
+        
+        mainFrame.add(mapPanel, BorderLayout.CENTER);
+        mainFrame.add(buttonPanel, BorderLayout.SOUTH);
 
+        mainFrame.pack();
+        mainFrame.setVisible(true);
+    }
 
-
-        // Create a JPanel to hold the buttons
-        JPanel jpanel = new JPanel();
-
-
+    private void buildButtonPanel() {
+        buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
         // Create start button
         JButton startButton = new JButton("Start Simulation");
-        // add start button to the button panel
-        jpanel.add(startButton);
+        buttonPanel.add(startButton);
 
-        // create end simulation button
+        // Create end simulation button
         JButton endButton = new JButton("End Simulation");
-        // add endButton to button panel
-        jpanel.add(endButton);
+        buttonPanel.add(endButton);
 
 
-        // create increment month button
+        // Create increment month button
         JButton incrementButton = new JButton("Increment Month");
-        // add endButton to button panel
-        jpanel.add(incrementButton);
+        buttonPanel.add(incrementButton);
 
 
-        // create exitButton
+        // Create exitButton
         JButton exitButton = new JButton("Exit Program");
-        // add exit button to button panel
-        jpanel.add(exitButton);
+        buttonPanel.add(exitButton);
 
 
 
-        // add action listeners to the buttons
+        // Add action listeners to the buttons
         startButton.addActionListener(e1 -> this.startSimulation());
         endButton.addActionListener(e2 -> this.endSimulation());
         incrementButton.addActionListener(e3 -> this.incrementMonth());
         exitButton.addActionListener(e4 -> System.exit(0));
-
-
-
-        // the buttons are put on the bottom center of the screen
-        jframe.add(jpanel, BorderLayout.SOUTH);
-        // now that they are on the bottom,
-        // by saying (new FlowLayout(FlowLayout.RIGHT)), the buttons are also put on the right
-        jpanel.setLayout(new FlowLayout(FlowLayout.RIGHT));//FlowLayout.RIGHT));
-
-
-
-        // "frame.setExtendedState(JFrame.MAXIMIZED_BOTH)" forces the width and height to be full screen
-        jframe.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        //frame.setUndecorated(true); // if wanted, could remove boarder
-
-        // run the frame of existing simulations
-        jframe.setVisible(true);
     }
 
-    // the painComponenet(Graphics g) method in in the ImageIcon class. It simply displays the image
-    @Override
-    public void paintComponent(Graphics g) {
-        // super.painComponent(g) is important because it ensures that all painting components that are not
-        // expressly defined in the method can be handled by the parent class's paintComponent(Graphics g) method
-        super.paintComponent(g);
-        // draw the image mapImage at coordinates (0,0). This refers to the current instance of the panel
-        g.drawImage(mapImage, 0, 0, this);
 
-
-        // Define the position for the text boxes.
-        int x = getWidth() - 330;
-        int y = 20;
-
-        // draw numbered text boxes in the top right corner.
-        for (int i = 1; i <= 10; i++) {
-            g.drawString(i + ". ...", x, y);
-            // push the text box 20 pixels down
-            y += 20;
-        }
-
-        g.drawString("Current Month: " + currentMonth, getWidth() - 450, 20);
-    }
-
+    //
+    // -- Button methods.
+    //
 
     private void startSimulation() {
         simulation = new Simulation(presetFilePath);
     }
 
     private void endSimulation() {
-        //delete simulation class
+        // Delete simulation class
     }
 
     private void incrementMonth() {
@@ -214,9 +142,88 @@ public class GUI extends JPanel {
         repaint();
     }
 
-    public static void main(String[] args) {
-        // instance of simulation class
-        GUI gui = new GUI("./presetFiles/AmericaPreset.txt");
-//        GUI gui = new GUI("./presetFiles/EuropePreset.txt");
+
+    //
+    // -- Methods for fetching data from file.
+    //
+
+
+    // Fetch sim data from preset file
+    private void loadFromFile() {
+        File presetFile = new File(this.presetFilePath);
+        try{
+            Scanner sc = new Scanner(presetFile);
+            while (sc.hasNextLine()){
+                String[] header = sc.nextLine().split(":");
+                switch (header[0].trim().toLowerCase()){
+                    case "gui" -> {
+                        mapPanel = new ImagePanel(sc);
+                    }
+                    case "visual" -> {
+                        // Construct a visual object and put it in the hashmap
+                        String stateName = header[1].trim().toLowerCase();
+                        visuals.put(stateName,new VisualObject(sc));
+                    }
+                }
+            }
+        } catch (FileNotFoundException e){
+            // invalid file path causes program to exit
+            System.out.println("Invalid File Path");
+            System.exit(1);
+        } catch (Exception e){
+            // Invalid preset syntax causes program to exit
+            System.out.println("Invalid Preset Syntax");
+            System.exit(1);
+        }
     }
+
+    // Private class for the background map image.
+    private class ImagePanel extends JPanel {
+        private Image image;
+        private int width;
+        private int height;
+
+        public ImagePanel(Scanner sc) {
+            ImageIcon imageIcon = null;
+
+            try{
+                String[] line = sc.nextLine().split("=");
+                String name = line[0].trim().toLowerCase();
+                String mapPath = line[1].trim();
+
+                // If name does not match.
+                if (!name.equals("map path")) throw new Exception();
+
+                // Creating map image.
+                imageIcon = new ImageIcon(mapPath);
+
+                width = imageIcon.getIconWidth();
+                height = imageIcon.getIconHeight();
+                image = imageIcon.getImage();
+
+            } catch (FileNotFoundException e) {
+                // Invalid Map path causes program to exit
+                System.out.println("Invalid Map Path");
+                System.exit(1);
+            } catch (Exception e){
+                // Invalid Map preset syntax causes program to exit
+                System.out.println("Invalid Map Preset Syntax");
+                e.printStackTrace();
+                System.exit(1);
+            }
+        }
+
+        @Override
+        public Dimension getPreferredSize() {
+            return new Dimension(mainFrame.getWidth(), mainFrame.getHeight());
+        }
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            g.drawImage(image, 0, 0, this.getHeight()*((width+512)/height), this.getHeight(), this);
+        }
+
+    }
+
 }
