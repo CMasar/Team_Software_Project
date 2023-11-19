@@ -57,6 +57,7 @@ public class GUI extends JPanel {
     private HashMap<String,VisualObject> visuals;
 
     private JFrame mainFrame;
+    private JPanel dataPanel;
     private JPanel buttonPanel;
     private JPanel mapPanel;
 
@@ -66,12 +67,14 @@ public class GUI extends JPanel {
     public GUI(String presetFilePath) {
         this.presetFilePath = presetFilePath;
         mainFrame = new JFrame("Viral Simulation");
+        dataPanel = new JPanel();
         buttonPanel = new JPanel();
 
         simulation = new Simulation(presetFilePath); // Creating instance of Simulation class.
         visuals = new HashMap<String,VisualObject>(); // Stores visual representations of sim data.
 
         loadFromFile();
+        buildDataPanel();
         buildButtonPanel();
         buildFrame();
 
@@ -83,15 +86,24 @@ public class GUI extends JPanel {
     //
 
     private void buildFrame() {
-        mainFrame.setLayout(new BorderLayout());
+        mainFrame.setLayout(new BorderLayout(10, 10));
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setBounds(128, 128, 1200, 500);
         
         mainFrame.add(mapPanel, BorderLayout.CENTER);
+        mainFrame.add(dataPanel, BorderLayout.EAST);
         mainFrame.add(buttonPanel, BorderLayout.SOUTH);
 
         mainFrame.pack();
         mainFrame.setVisible(true);
+    }
+
+    private void buildDataPanel() {
+        dataPanel.setLayout(new GridLayout(10, 1, 5, 5));
+        
+        for(int i=0; i < 10; i++) {
+            dataPanel.add(new JTextField("Test State: 99999"));
+        }
     }
 
     private void buildButtonPanel() {
