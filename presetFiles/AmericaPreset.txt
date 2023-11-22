@@ -130,7 +130,7 @@ neighbors = Iowa, North Dakota, South Dakota, Wisconsin
 population = 5,717,184
 
 Region: Mississippi
-neighbors = Alabama, Arkanssas, Louisiana, Tennessee
+neighbors = Alabama, Arkansas, Louisiana, Tennessee
 population = 2,940,057
 
 Region: Missouri

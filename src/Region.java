@@ -30,7 +30,7 @@ public class Region {
                         this.neighbors = value.split(",");
                         assert neighbors.length > 0;
                         for (int j=0; j<neighbors.length; j++) {
-                            neighbors[j] = neighbors[j].trim();
+                            neighbors[j] = neighbors[j].trim().toLowerCase();
                         }
                         flag = flag | 2;
                         break;
