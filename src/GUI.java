@@ -109,6 +109,10 @@ public class GUI extends JPanel {
     private void buildButtonPanel() {
         buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
+        JTextField fileTextField = new JTextField("Enter File Name or Location");
+        fileTextField.setPreferredSize(new Dimension(200, 25));
+        buttonPanel.add(fileTextField);
+        
         // Create start button
         JButton startButton = new JButton("Start Simulation");
         buttonPanel.add(startButton);
