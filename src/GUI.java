@@ -238,4 +238,7 @@ public class GUI extends JPanel {
 
     }
 
+    public static void main(String[] args) {
+        GUI gui = new GUI("./presetFiles/AmericaPreset.txt");
+    }
 }
