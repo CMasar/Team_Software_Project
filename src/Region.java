@@ -35,7 +35,7 @@ public class Region {
                         flag = flag | 2;
                         break;
                     case "infected":
-                        this.infected = Integer.parseInt(value);
+                        this.infected = Integer.parseInt(value.replace(",",""));
                         break;
                     case "dead":
                         this.dead = Integer.parseInt(value);

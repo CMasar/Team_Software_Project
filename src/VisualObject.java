@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.awt.Color;
 
 public class VisualObject {
     final static int requiredParameters = 4;
@@ -6,6 +7,8 @@ public class VisualObject {
     int y;
     int width;
     int height;
+    
+    String rgb = "#0000FF";
 
     //from preset file
     public VisualObject(Scanner sc){
@@ -54,7 +57,14 @@ public class VisualObject {
         //TODO: construct rectangle
     }
 
-    public void updateColor(double percentInfected){
-        //TODO: Update rectangle color
+    public Color updateColor(double percentInfected){
+        int red = 255;
+        int green = (int) (255 + percentInfected*(-255));
+        int blue = (int) (255 + percentInfected*(-255));
+
+        // Stores the r, g, b color values to a hex value.
+        rgb = String.format("#%02x%02x%02x", red, green, blue);
+
+        return Color.decode(rgb);
     }
 }

@@ -1,11 +1,11 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.nio.MappedByteBuffer;
 import java.util.HashMap;
 import java.util.Scanner;
 import javax.swing.*;
+
 import java.awt.*;
-import java.awt.image.BufferedImage;
+import java.awt.event.MouseListener;
 
 
 /*
@@ -50,7 +50,7 @@ import java.awt.image.BufferedImage;
  * 						JPanel.setLayout ( new FLowLayout ( FlowLayout."POSITION" );
  * 						"POSITION" in FlowLayout can be either RIGHT, LEFT, or CENTER in all capitalization
  */
-public class GUI extends JPanel {
+public class GUI extends JFrame implements MouseListener {
     private String presetFilePath;
 
     private Simulation simulation;
@@ -59,10 +59,10 @@ public class GUI extends JPanel {
     private JFrame mainFrame;
     private JPanel dataPanel;
     private JPanel buttonPanel;
-    private JPanel mapPanel;
+    private ImageLabel mapLabel;
 
     private int currentMonth = 0;
-
+    private double percent = 0.0;
 
     public GUI(String presetFilePath) {
         this.presetFilePath = presetFilePath;
@@ -89,9 +89,12 @@ public class GUI extends JPanel {
         mainFrame.setLayout(new BorderLayout(10, 10));
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setBounds(128, 128, 1200, 500);
-        
-        mainFrame.add(mapPanel, BorderLayout.CENTER);
-        mainFrame.add(dataPanel, BorderLayout.EAST);
+        mainFrame.setMinimumSize(new Dimension(1200, 500));
+
+        mapLabel.addMouseListener(this);
+
+        mainFrame.add(mapLabel, BorderLayout.CENTER);
+        //mainFrame.add(dataPanel, BorderLayout.CENTER, 1);
         mainFrame.add(buttonPanel, BorderLayout.SOUTH);
 
         mainFrame.pack();
@@ -151,12 +154,47 @@ public class GUI extends JPanel {
 
     private void incrementMonth() {
         currentMonth++;
-        repaint();
+        percent += 0.1;
+        percent = (percent >= 1.0) ? 1.0 : percent;
+        mapLabel.repaint();
     }
 
 
     //
-    // -- Methods for fetching data from file.
+    // -- Mouse Listener Methods
+    //
+
+    @Override
+    public void mouseClicked(java.awt.event.MouseEvent e) {
+        System.out.printf("X: %d | y: %d\n", (int) (e.getX()/mapLabel.scaler), (int) (e.getY()/mapLabel.scaler));
+    }
+
+
+    @Override
+    public void mousePressed(java.awt.event.MouseEvent e) {
+        // Do Nothing.
+    }
+
+
+    @Override
+    public void mouseReleased(java.awt.event.MouseEvent e) {
+        // Do Nothing.
+    }
+
+
+    @Override
+    public void mouseEntered(java.awt.event.MouseEvent e) {
+        // Do Nothing.
+    }
+
+
+    @Override
+    public void mouseExited(java.awt.event.MouseEvent e) {
+        // Do Nothing.
+    }
+
+    //
+    // -- Method for fetching data from file.
     //
 
 
@@ -169,7 +207,7 @@ public class GUI extends JPanel {
                 String[] header = sc.nextLine().split(":");
                 switch (header[0].trim().toLowerCase()){
                     case "gui" -> {
-                        mapPanel = new ImagePanel(sc);
+                        mapLabel = new ImageLabel(sc);
                     }
                     case "visual" -> {
                         // Construct a visual object and put it in the hashmap
@@ -189,13 +227,21 @@ public class GUI extends JPanel {
         }
     }
 
-    // Private class for the background map image.
-    private class ImagePanel extends JPanel {
-        private Image image;
-        private int width;
-        private int height;
 
-        public ImagePanel(Scanner sc) {
+    //
+    // -- Class for displaying Map.
+    //
+
+
+    // Private class for the background map image.
+    private class ImageLabel extends JLabel {
+        private Image image;
+        private int imageWidth;
+        private int imageHeight;
+
+        float scaler;
+
+        public ImageLabel(Scanner sc) {
             ImageIcon imageIcon = null;
 
             try{
@@ -209,8 +255,8 @@ public class GUI extends JPanel {
                 // Creating map image.
                 imageIcon = new ImageIcon(mapPath);
 
-                width = imageIcon.getIconWidth();
-                height = imageIcon.getIconHeight();
+                imageWidth = imageIcon.getIconWidth();
+                imageHeight = imageIcon.getIconHeight();
                 image = imageIcon.getImage();
 
             } catch (FileNotFoundException e) {
@@ -228,13 +274,33 @@ public class GUI extends JPanel {
         @Override
         public Dimension getPreferredSize() {
             return new Dimension(mainFrame.getWidth(), mainFrame.getHeight());
+            
         }
 
         @Override
         protected void paintComponent(Graphics g) {
+            int ratio = (imageWidth+400)/imageHeight;
+            scaler = (float) this.getHeight()/imageHeight;
+
             super.paintComponent(g);
-            g.drawImage(image, 0, 0, this.getHeight()*((width+512)/height), this.getHeight(), this);
+            g.drawImage(image, 0, 0, this.getHeight()*ratio, this.getHeight(), this);
+
+            if(visuals.size() <= 0) return;
+            for(String regionName : visuals.keySet()) {
+                VisualObject visual = visuals.get(regionName);
+
+                g.setColor(visual.updateColor(percent));
+                //g.setColor(visual.updateColor(simulation.getRegions().get(regionName).getPercentInfected()));
+                g.fillRect((int) (visual.x*scaler), (int) (visual.y*scaler) , (int) (visual.width*scaler), (int) (visual.height*scaler));
+                
+                g.setColor(Color.BLACK);
+                g.drawString(regionName, (int) (visual.x*scaler), (int) (visual.y*scaler));
+                g.drawRect((int) (visual.x*scaler), (int) (visual.y*scaler) , (int) (visual.width*scaler), (int) (visual.height*scaler));
+
+            }
+
         }
+
 
     }
 

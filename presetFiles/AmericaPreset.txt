@@ -15,12 +15,306 @@
 GUI:
 map path = ./images/America.png
 
-//example:
+Visual: Alabama
+x = 0
+y = 0
+width = 16
+height = 16
+
+Visual: Alaska
+x = 230
+y = 810
+width = 16
+height = 16
+
+Visual: Arizona
+x = 0
+y = 0
+width = 16
+height = 16
+
+Visual: Arkansas
+x = 0
+y = 0
+width = 16
+height = 16
+
+Visual: California
+x = 117
+y = 465
+width = 16
+height = 16
+
+Visual: Colorado
+x = 0
+y = 0
+width = 16
+height = 16
+
+Visual: Connecticut
+x = 0
+y = 0
+width = 16
+height = 16
+
+Visual: Delaware
+x = 0
+y = 0
+width = 16
+height = 16
+
+Visual: Florida
+x = 1512
+y = 818
+width = 16
+height = 16
+
+Visual: Georgia
+x = 0
+y = 0
+width = 16
+height = 16
+
+Visual: Hawaii
+x = 582
+y = 913
+width = 16
+height = 16
+
+Visual: Idaho
+x = 0
+y = 0
+width = 16
+height = 16
+
+Visual: Illinois
+x = 0
+y = 0
+width = 16
+height = 16
+
+Visual: Indiana
+x = 0
+y = 0
+width = 16
+height = 16
+
+Visual: Iowa
+x = 0
+y = 0
+width = 16
+height = 16
+
+Visual: Kansas
+x = 0
+y = 0
+width = 16
+height = 16
+
+Visual: Kentucky
+x = 0
+y = 0
+width = 16
+height = 16
+
+Visual: Louisiana
+x = 0
+y = 0
+width = 16
+height = 16
+
+Visual: Maine
+x = 0
+y = 0
+width = 16
+height = 16
+
+Visual: Maryland
+x = 0
+y = 0
+width = 16
+height = 16
+
+Visual: Massachusetts
+x = 0
+y = 0
+width = 16
+height = 16
+
 Visual: Michigan
-x = 500
-y = 500
-width = 20
-height = 20
+x = 1315
+y = 275
+width = 16
+height = 16
+
+Visual: Minnesota
+x = 0
+y = 0
+width = 16
+height = 16
+
+Visual: Mississippi
+x = 0
+y = 0
+width = 16
+height = 16
+
+Visual: Missouri
+x = 0
+y = 0
+width = 16
+height = 16
+
+Visual: Montana
+x = 0
+y = 0
+width = 16
+height = 16
+
+Visual: Nebraska
+x = 0
+y = 0
+width = 16
+height = 16
+
+Visual: Nevada
+x = 0
+y = 0
+width = 16
+height = 16
+
+Visual: New Hampshire
+x = 0
+y = 0
+width = 16
+height = 16
+
+Visual: New Jersey
+x = 0
+y = 0
+width = 16
+height = 16
+
+Visual: New Mexico
+x = 0
+y = 0
+width = 16
+height = 16
+
+Visual: New York
+x = 0
+y = 0
+width = 16
+height = 16
+
+Visual: North Carolina
+x = 0
+y = 0
+width = 16
+height = 16
+
+Visual: North Dakota
+x = 0
+y = 0
+width = 16
+height = 16
+
+Visual: Ohio
+x = 1396
+y = 411
+width = 16
+height = 16
+
+Visual: Oklahoma
+x = 0
+y = 0
+width = 16
+height = 16
+
+Visual: Oregon
+x = 0
+y = 0
+width = 16
+height = 16
+
+Visual: Pennsylvania
+x = 0
+y = 0
+width = 16
+height = 16
+
+Visual: Rhode Island
+x = 0
+y = 0
+width = 16
+height = 16
+
+Visual: South Carolina
+x = 0
+y = 0
+width = 16
+height = 16
+
+Visual: South Dakota
+x = 0
+y = 0
+width = 16
+height = 16
+
+Visual: Tennessee
+x = 0
+y = 0
+width = 16
+height = 16
+
+Visual: Texas
+x = 837
+y = 755
+width = 16
+height = 16
+
+Visual: Utah
+x = 0
+y = 0
+width = 16
+height = 16
+
+Visual: Vermont
+x = 0
+y = 0
+width = 16
+height = 16
+
+Visual: Virginia
+x = 0
+y = 0
+width = 16
+height = 16
+
+Visual: Washington
+x = 0
+y = 0
+width = 16
+height = 16
+
+Visual: West Virginia
+x = 0
+y = 0
+width = 16
+height = 16
+
+Visual: Wisconsin
+x = 0
+y = 0
+width = 16
+height = 16
+
+Visual: Wyoming
+x = 0
+y = 0
+width = 16
+height = 16
+
 
 //todo: put more visuals and make them accurate
 
