@@ -1,7 +1,7 @@
 ######## United States Map Preset ########
 
-//Formating instrucitons:
-//each object should be continous, with a blank line at the end
+//Formatting instructions:
+//each object should be continuous, with a blank line at the end
 //the first line of each object should be 
 //	"[class name]: [optional value]"
 //all following lines should be 
@@ -424,7 +424,7 @@ neighbors = Iowa, North Dakota, South Dakota, Wisconsin
 population = 5,717,184
 
 Region: Mississippi
-neighbors = Alabama, Arkanssas, Louisiana, Tennessee
+neighbors = Alabama, Arkansas, Louisiana, Tennessee
 population = 2,940,057
 
 Region: Missouri
