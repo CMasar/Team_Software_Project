@@ -287,11 +287,10 @@ public class GUI extends JFrame implements MouseListener {
 
         @Override
         protected void paintComponent(Graphics g) {
-            double ratio = (double) imageWidth /imageHeight;
-            scaler = (float) this.getHeight()/imageHeight;
+            scaler = this.getHeight()*imageWidth/imageHeight < this.getWidth() ? (float) this.getHeight() / imageHeight : (float) this.getWidth() / imageWidth;
 
             super.paintComponent(g);
-            g.drawImage(image, 0, 0, (int) (this.getHeight()*ratio), this.getHeight(), this);
+            g.drawImage(image, 0, 0, (int) (imageWidth*scaler), (int) (imageHeight*scaler), this);
 
             if(visuals.size() <= 0) return;
             for(String regionName : visuals.keySet()) {
@@ -299,11 +298,11 @@ public class GUI extends JFrame implements MouseListener {
 
                 g.setColor(visual.updateColor(percent));
                 //g.setColor(visual.updateColor(simulation.getRegions().get(regionName).getPercentInfected()));
-                g.fillRect((int) (visual.x*scaler), (int) (visual.y*scaler) , (int) (visual.width*scaler), (int) (visual.height*scaler));
-                
+                g.fillRect((int) (visual.x * scaler), (int) (visual.y * scaler), (int) (visual.width * scaler), (int) (visual.height * scaler));
+
                 g.setColor(Color.BLACK);
-                g.drawString(regionName, (int) (visual.x*scaler), (int) (visual.y*scaler));
-                g.drawRect((int) (visual.x*scaler), (int) (visual.y*scaler) , (int) (visual.width*scaler), (int) (visual.height*scaler));
+                g.drawString(regionName, (int) (visual.x * scaler), (int) (visual.y * scaler));
+                g.drawRect((int) (visual.x * scaler), (int) (visual.y * scaler), (int) (visual.width * scaler), (int) (visual.height * scaler));
             }
         }
     }
