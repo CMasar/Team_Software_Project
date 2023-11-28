@@ -273,6 +273,10 @@ public class GUI extends JFrame implements MouseListener {
                 e.printStackTrace();
                 System.exit(1);
             }
+
+            System.out.println(imageWidth);
+
+            System.out.println(imageHeight);
         }
 
         @Override
@@ -283,11 +287,11 @@ public class GUI extends JFrame implements MouseListener {
 
         @Override
         protected void paintComponent(Graphics g) {
-            int ratio = (imageWidth+400)/imageHeight;
+            double ratio = (double) imageWidth /imageHeight;
             scaler = (float) this.getHeight()/imageHeight;
 
             super.paintComponent(g);
-            g.drawImage(image, 0, 0, this.getHeight()*ratio, this.getHeight(), this);
+            g.drawImage(image, 0, 0, (int) (this.getHeight()*ratio), this.getHeight(), this);
 
             if(visuals.size() <= 0) return;
             for(String regionName : visuals.keySet()) {
@@ -300,12 +304,8 @@ public class GUI extends JFrame implements MouseListener {
                 g.setColor(Color.BLACK);
                 g.drawString(regionName, (int) (visual.x*scaler), (int) (visual.y*scaler));
                 g.drawRect((int) (visual.x*scaler), (int) (visual.y*scaler) , (int) (visual.width*scaler), (int) (visual.height*scaler));
-
             }
-
         }
-
-
     }
 
     public static void main(String[] args) {
