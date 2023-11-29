@@ -6,7 +6,6 @@ public class Main {
         //GUI gui;
         //HashMap<String,Region> regions;
 
-        new GUI("./presetFiles/AmericaPreset.txt");
-        
+        new GUI();
     }
 }

@@ -25,8 +25,8 @@ duration = 20
 immunity = False
 
 Visual: United Kingdom
-x = 500
-y = 500
+x = 291
+y = 303
 width = 20
 height = 20
 

@@ -7,7 +7,7 @@
 //all following lines should be 
 //	"[parameter name] = [value]"
 //there should be no extra lines within an object's continuous section
-//any extra lines outside of the objects are ignored
+//any extra lines outside the objects are ignored
 
 
 ########################################
@@ -148,8 +148,8 @@ width = 16
 height = 16
 
 Visual: Minnesota
-x = 866
-y = 503
+x = 804
+y = 229
 width = 16
 height = 16
 
@@ -315,15 +315,12 @@ y = 334
 width = 16
 height = 16
 
-
-//todo: put more visuals and make them accurate
-
 ########################################
 
 Simulation:
 
 Virus:
-r0 = 2
+r0 = 10
 mortality rate = 2
 duration = 20
 immunity = False
@@ -470,6 +467,7 @@ population = 779,261
 Region: Ohio
 neighbors = Indiana, Kentucky, Michigan, Pennsylvania, West Virginia
 population = 11,756,058
+infected = 100,000
 
 Region: Oklahoma
 neighbors = Arkansas, Colorado, Kansas, Missouri, New Mexico, Texas

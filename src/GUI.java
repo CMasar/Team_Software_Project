@@ -51,9 +51,8 @@ import java.awt.event.MouseListener;
  * 						"POSITION" in FlowLayout can be either RIGHT, LEFT, or CENTER in all capitalization
  */
 public class GUI extends JFrame implements MouseListener {
-    private String presetFilePath;
-
-    private Simulation simulation;
+    private String presetFilePath = null;
+    private Simulation simulation = null;
     private HashMap<String,VisualObject> visuals;
 
     private JFrame mainFrame;
@@ -62,22 +61,17 @@ public class GUI extends JFrame implements MouseListener {
     private ImageLabel mapLabel;
 
     private int currentMonth = 0;
-    private double percent = 0.0;
 
-    public GUI(String presetFilePath) {
+    public GUI() {
         this.presetFilePath = presetFilePath;
         mainFrame = new JFrame("Viral Simulation");
         dataPanel = new JPanel();
         buttonPanel = new JPanel();
-
-        simulation = new Simulation(presetFilePath); // Creating instance of Simulation class.
         visuals = new HashMap<String,VisualObject>(); // Stores visual representations of sim data.
 
-        loadFromFile();
         buildDataPanel();
         buildButtonPanel();
         buildFrame();
-
     }
 
 
@@ -91,9 +85,6 @@ public class GUI extends JFrame implements MouseListener {
         mainFrame.setBounds(128, 128, 1200, 500);
         mainFrame.setMinimumSize(new Dimension(1200, 500));
 
-        mapLabel.addMouseListener(this);
-
-        mainFrame.add(mapLabel, BorderLayout.CENTER);
         //mainFrame.add(dataPanel, BorderLayout.CENTER, 1);
         mainFrame.add(buttonPanel, BorderLayout.SOUTH);
 
@@ -112,7 +103,7 @@ public class GUI extends JFrame implements MouseListener {
     private void buildButtonPanel() {
         buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
-        JTextField fileTextField = new JTextField("Enter File Name or Location");
+        JTextField fileTextField = new JTextField("./presetFiles/America.txt");
         fileTextField.setPreferredSize(new Dimension(200, 25));
         buttonPanel.add(fileTextField);
         
@@ -137,10 +128,11 @@ public class GUI extends JFrame implements MouseListener {
 
 
         // Add action listeners to the buttons
-        startButton.addActionListener(e1 -> this.startSimulation());
-        endButton.addActionListener(e2 -> this.endSimulation());
-        incrementButton.addActionListener(e3 -> this.incrementMonth());
-        exitButton.addActionListener(e4 -> System.exit(0));
+        fileTextField.addActionListener(e -> this.takeFilePath(fileTextField.getText()));
+        startButton.addActionListener(e -> this.startSimulation());
+        endButton.addActionListener(e -> this.endSimulation());
+        incrementButton.addActionListener(e -> this.incrementMonth());
+        exitButton.addActionListener(e -> System.exit(0));
     }
 
 
@@ -148,8 +140,18 @@ public class GUI extends JFrame implements MouseListener {
     // -- Button methods.
     //
 
+
+    private void takeFilePath(String path) {
+        if (presetFilePath == null){
+            presetFilePath = path;
+            loadFromFile();
+        }
+    }
+
     private void startSimulation() {
-        simulation = new Simulation(presetFilePath);
+        if (presetFilePath != null && simulation == null) {
+            simulation = new Simulation(presetFilePath);
+        }
     }
 
     private void endSimulation() {
@@ -157,10 +159,11 @@ public class GUI extends JFrame implements MouseListener {
     }
 
     private void incrementMonth() {
-        currentMonth++;
-        percent += 0.1;
-        percent = (percent >= 1.0) ? 1.0 : percent;
-        mapLabel.repaint();
+        if (simulation != null) {
+            currentMonth++;
+            simulation.updateSimulation();
+            mapLabel.repaint();
+        }
     }
 
 
@@ -212,6 +215,9 @@ public class GUI extends JFrame implements MouseListener {
                 switch (header[0].trim().toLowerCase()){
                     case "gui" -> {
                         mapLabel = new ImageLabel(sc);
+                        mapLabel.addMouseListener(this);
+                        mainFrame.add(mapLabel, BorderLayout.CENTER);
+                        mainFrame.pack();
                     }
                     case "visual" -> {
                         // Construct a visual object and put it in the hashmap
@@ -223,7 +229,7 @@ public class GUI extends JFrame implements MouseListener {
         } catch (FileNotFoundException e){
             // invalid file path causes program to exit
             System.out.println("Invalid File Path");
-            System.exit(1);
+            this.presetFilePath = null;
         } catch (Exception e){
             // Invalid preset syntax causes program to exit
             System.out.println("Invalid Preset Syntax");
@@ -264,19 +270,14 @@ public class GUI extends JFrame implements MouseListener {
                 image = imageIcon.getImage();
 
             } catch (FileNotFoundException e) {
-                // Invalid Map path causes program to exit
-                System.out.println("Invalid Map Path");
-                System.exit(1);
+                // Invalid Map path prompts user to renter path
+                System.out.println("Invalid Map Path in Preset File");
             } catch (Exception e){
                 // Invalid Map preset syntax causes program to exit
                 System.out.println("Invalid Map Preset Syntax");
                 e.printStackTrace();
                 System.exit(1);
             }
-
-            System.out.println(imageWidth);
-
-            System.out.println(imageHeight);
         }
 
         @Override
@@ -296,7 +297,11 @@ public class GUI extends JFrame implements MouseListener {
             for(String regionName : visuals.keySet()) {
                 VisualObject visual = visuals.get(regionName);
 
-                g.setColor(visual.updateColor(percent));
+                if (simulation == null) {
+                    g.setColor(visual.updateColor(0));
+                } else {
+                    g.setColor(visual.updateColor(simulation.getPercentInfected(regionName)));
+                }
                 //g.setColor(visual.updateColor(simulation.getRegions().get(regionName).getPercentInfected()));
                 g.fillRect((int) (visual.x * scaler), (int) (visual.y * scaler), (int) (visual.width * scaler), (int) (visual.height * scaler));
 
@@ -307,7 +312,4 @@ public class GUI extends JFrame implements MouseListener {
         }
     }
 
-    public static void main(String[] args) {
-        GUI gui = new GUI("./presetFiles/AmericaPreset.txt");
-    }
 }

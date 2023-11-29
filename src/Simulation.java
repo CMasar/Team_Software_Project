@@ -31,15 +31,18 @@ public class Simulation {
                 }
             }
         } catch (FileNotFoundException e){
-            //invalid file path causes program to exit
+            // Invalid Map path prompts user to renter path
             System.out.println("Invalid File Path");
-            System.exit(1);
         } catch (Exception e){
             //invalid preset syntax causes program to exit
             System.out.println("Invalid Preset Syntax");
             e.printStackTrace();
             System.exit(1);
         }
+    }
+
+    double getPercentInfected(String regionName){
+        return regions.get(regionName).getPercentInfected();
     }
 
     void updateSimulation() {
@@ -53,8 +56,7 @@ public class Simulation {
         // Looping through all regions.
         for(Region region : regions.values()) {
             // Updating number of infected in region, max value being the population size.
-            region.infected = region.infected * virus.r0;
-            if(region.infected > region.population) region.infected = region.population;
+            region.addInfected(region.infected * virus.r0);
         }
 
     }
@@ -85,8 +87,7 @@ public class Simulation {
                 if(neighbor.infected <= 0) continue; // Skip if neighbor has no infected.
                 
                 // Calculating and Storing spread.
-                if(regionSpread.get(regionName) == null) regionSpread.put(regionName, 0);
-                int spread = regionSpread.get(regionName) + 100 * (neighbor.infected/neighbor.population);
+                int spread = regionSpread.getOrDefault(regionName,0) + (int) ((float) neighbor.getPercentInfected() * virus.r0 * 100);
                 regionSpread.put(regionName, spread);
             }
         }
@@ -97,10 +98,9 @@ public class Simulation {
 
             // Skip if region is already infected.
             if(region.infected > 0) continue;
-            if(regionSpread.get(regionName) != null) continue;
             
-            // Applying spead to region.
-            region.infected = regionSpread.get(regionName);
+            // Applying spread to region.
+            region.addInfected(regionSpread.getOrDefault(regionName, 0));
         }
     }
 
