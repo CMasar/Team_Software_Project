@@ -63,7 +63,7 @@ public class GUI extends JFrame implements MouseListener {
     private int currentMonth = 0;
 
     public GUI() {
-        this.presetFilePath = presetFilePath;
+
         mainFrame = new JFrame("Viral Simulation");
         dataPanel = new JPanel();
         buttonPanel = new JPanel();
@@ -129,9 +129,16 @@ public class GUI extends JFrame implements MouseListener {
 
         // Add action listeners to the buttons
         fileTextField.addActionListener(e -> this.takeFilePath(fileTextField.getText()));
-        startButton.addActionListener(e -> this.startSimulation());
+        
+        startButton.addActionListener(e -> {
+            this.takeFilePath(fileTextField.getText());
+            this.startSimulation();
+        });
+        
         endButton.addActionListener(e -> this.endSimulation());
+        
         incrementButton.addActionListener(e -> this.incrementMonth());
+        
         exitButton.addActionListener(e -> System.exit(0));
     }
 
@@ -292,6 +299,7 @@ public class GUI extends JFrame implements MouseListener {
 
             super.paintComponent(g);
             g.drawImage(image, 0, 0, (int) (imageWidth*scaler), (int) (imageHeight*scaler), this);
+            g.drawString("Number of Months: " + String.valueOf(currentMonth), (int) (imageWidth*scaler) + 10, 20);
 
             if(visuals.size() <= 0) return;
             for(String regionName : visuals.keySet()) {
@@ -302,14 +310,17 @@ public class GUI extends JFrame implements MouseListener {
                 } else {
                     g.setColor(visual.updateColor(simulation.getPercentInfected(regionName)));
                 }
-                //g.setColor(visual.updateColor(simulation.getRegions().get(regionName).getPercentInfected()));
+                
                 g.fillRect((int) (visual.x * scaler), (int) (visual.y * scaler), (int) (visual.width * scaler), (int) (visual.height * scaler));
 
                 g.setColor(Color.BLACK);
                 g.drawString(regionName, (int) (visual.x * scaler), (int) (visual.y * scaler));
                 g.drawRect((int) (visual.x * scaler), (int) (visual.y * scaler), (int) (visual.width * scaler), (int) (visual.height * scaler));
             }
+
         }
+
+
     }
 
 }

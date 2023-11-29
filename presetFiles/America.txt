@@ -320,7 +320,7 @@ height = 16
 Simulation:
 
 Virus:
-r0 = 10
+r0 = 5
 mortality rate = 2
 duration = 20
 immunity = False
