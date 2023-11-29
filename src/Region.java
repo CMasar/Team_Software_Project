@@ -2,10 +2,10 @@ import java.util.Scanner;
 
 public class Region {
     final static int requiredParameters = 2;
-    int population;
+    long population;
 
     String[] neighbors;
-    int infected=0;
+    long infected=0;
     int dead=0;
     int immune=0;
 
@@ -60,7 +60,12 @@ public class Region {
         }
     }
 
-    //put some methods in here to change the population and infected people
+    public void addInfected(long newInfections){
+        infected += newInfections;
+        if (infected>population) {
+            infected = population;
+        }
+    }
 
     public double getPercentInfected(){
         return (double)infected/population;

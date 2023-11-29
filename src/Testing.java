@@ -15,7 +15,7 @@ public class Testing{
             private HashMap<String,Region> regions;
             @BeforeEach
             void setup(){
-                sim = new Simulation("./presetFiles/AmericaPreset.txt");
+                sim = new Simulation("./presetFiles/America.txt");
                 regions = sim.getRegions();
             }
 
