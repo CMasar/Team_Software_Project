@@ -52,9 +52,6 @@ public class VisualObject {
             System.out.println("Invalid Preset File Syntax");
             System.exit(1);
         }
-
-
-        //TODO: construct rectangle
     }
 
     public Color updateColor(double percentInfected){

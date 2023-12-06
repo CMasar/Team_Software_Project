@@ -3,32 +3,409 @@ map path = ./images/Europe.png
 
 Simulation:
 
-Region: United Kingdom
-population = 10,500,000
-neighbors = Ireland, France
+Region: Albania
+population = 2,854,710
+neighbors = Greece, Montenegro, Serbia, Kosovo
 
-Region: Ireland
-population =  11780000
-infected = 1
-neighbors = United Kingdom
+Region: Andorra
+population = 79,034
+neighbors = Spain, France
+
+Region: Austria
+population = 8,922,082
+neighbors = Switzerland, Germany, Hungary, Slovakia, Czechia, Italy, Slovenia, Liechtenstein
+
+Region: Belarus
+population = 9,578,167
+neighbors = Poland, Lithuania, Ukraine, Russia, Latvia
+
+Region: Belgium
+population = 11,611,419
+neighbors = Germany, Netherlands, Luxembourg, France
+
+Region: Bosnia and Herzegovina
+population = 3,270,943
+neighbors = Croatia, Montenegro, Serbia
+
+Region: Bulgaria
+population = 6,885,868
+neighbors = Greece, Romania, Serbia
+
+Region: Croatia
+population = 4,060,135
+neighbors = Hungary, Slovenia, Bosnia and Herzegovina, Montenegro, Serbia
+
+Region: Czechia
+population = 10,510,751
+neighbors = Poland, Germany, Slovakia, Austria
+
+Region: Denmark
+population = 5,854,240
+neighbors = Germany
+
+Region: Estonia
+population = 1,328,701
+neighbors = Russia, Latvia
+
+Region: Finland
+population = 5,535,992
+neighbors = Norway, Russia, Sweden
 
 Region: France
-population = 6,806000
+population = 64,531,444
+neighbors = Switzerland, Germany, Belgium, Luxembourg, Italy, Andorra, Monaco, Spain, United Kingdom
+
+Region: Germany
+population = 83,408,554
+neighbors = Switzerland, Poland, Netherlands, Denmark, Belgium, Czechia, Luxembourg, France, Austria
+
+Region: Greece
+population = 10,445,365
+neighbors = Albania, Bulgaria
+
+Region: Hungary
+population = 9,709,786
+neighbors = Slovakia, Slovenia, Romania, Ukraine, Croatia, Austria, Serbia
+
+Region: Iceland
+population = 370,335
 neighbors = United Kingdom
+
+Region: Ireland
+population = 4,986,526
+neighbors = United Kingdom
+
+Region: Italy
+population = 59,240,329
+neighbors = Switzerland, Slovenia, San Marino, France, Austria
+
+Region: Kosovo
+population = 1,662,009
+neighbors = Serbia, Albania, Montenegro
+
+Region: Latvia
+population = 1,873,919
+neighbors = Lithuania, Estonia, Belarus, Russia
+
+Region: Liechtenstein
+population = 39,039
+neighbors = Switzerland, Austria
+
+Region: Lithuania
+population = 2,786,651
+neighbors = Poland, Belarus, Russia, Latvia
+
+Region: Luxembourg
+population = 639,321
+neighbors = Germany, Belgium, France
+
+Region: Moldova
+population = 3,061,506
+neighbors = Romania, Ukraine
+
+Region: Monaco
+population = 36,686
+neighbors = France
+
+Region: Montenegro
+population = 627,859
+neighbors = Albania, Croatia, Bosnia and Herzegovina, Serbia, Kosovo
+
+Region: Netherlands
+population = 17,501,696
+neighbors = Germany, Belgium
+
+Region: Norway
+population = 5,403,021
+neighbors = Finland, Russia, Sweden
+
+Region: Poland
+population = 38,307,726
+neighbors = Germany, Lithuania, Slovakia, Czechia, Belarus, Ukraine, Russia
+
+Region: Portugal
+population = 10,290,103
+neighbors = Spain
+
+Region: Romania
+population = 19,328,560
+neighbors = Moldova, Hungary, Ukraine, Bulgaria, Serbia
+
+Region: Russia
+population = 145,102,755
+neighbors = Belarus, Ukraine, Latvia, Poland, Estonia, Lithuania, Finland, Norway
+
+Region: San Marino
+population = 33,745
+neighbors = Italy
+
+Region: Serbia
+population = 7,296,769
+neighbors = Albania, Hungary, Romania, Croatia, Bosnia and Herzegovina, Bulgaria, Montenegro, Kosovo
+
+Region: Slovakia
+population = 5,447,622
+neighbors = Poland, Hungary, Czechia, Ukraine, Austria
+
+Region: Slovenia
+population = 2,119,410
+neighbors = Hungary, Italy, Croatia, Austria
+
+Region: Spain
+population = 47,486,935
+neighbors = Andorra, Portugal, France
+
+Region: Sweden
+population = 10,467,097
+neighbors = Norway, Finland
+
+
+Region: Switzerland
+population = 8,691,406
+neighbors = Germany, Italy, Liechtenstein, France, Austria
+
+Region: Ukraine
+population = 43,531,422
+neighbors = Poland, Moldova, Hungary, Slovakia, Belarus, Romania, Russia
+
+Region: United Kingdom
+population = 67,281,039
+neighbors = Ireland, Iceland, France
+infected = 1
+
+
 
 //todo: put in the rest of the countries
 
 Virus:
-r0 = 2
+r0 = 10
 mortality rate = 2
 duration = 20
 immunity = False
 
-Visual: United Kingdom
-x = 291
-y = 303
+
+Visual: Albania
+x = 578
+y = 505
 width = 20
 height = 20
 
 
-//todo: put more visuals and make them accurate
+Visual: Austria
+x = 505
+y =391
+width = 20
+height = 20
+
+Visual: Belarus
+x =677
+y =288
+width = 20
+height = 20
+
+Visual: Belgium
+x =370
+y =336
+width = 20
+height = 20
+
+Visual: Bosnia and Herzegovina
+x =530
+y =440
+width = 20
+height = 20
+
+Visual: Bulgaria
+x =654
+y =482
+width = 20
+height = 20
+
+Visual: Croatia
+x =511
+y =447
+width = 20
+height = 20
+
+Visual: Czechia
+x =504
+y =355
+width = 20
+height = 20
+
+Visual: Denmark
+x =433
+y =242
+width = 20
+height = 20
+
+Visual: Estonia
+x =641
+y =202
+width = 20
+height = 20
+
+Visual: Finland
+x =633
+y =141
+width = 20
+height = 20
+
+Visual: France
+x =324
+y =421
+width = 20
+height = 20
+
+Visual: Germany
+x =437
+y =337
+width = 20
+height = 20
+
+Visual: Greece
+x =619
+y =549
+width = 20
+height = 20
+
+Visual: Hungary
+x =569
+y =404
+width = 20
+height = 20
+
+Visual: Iceland
+x =105
+y =110
+width = 20
+height = 20
+
+Visual: Ireland
+x =205
+y =293
+width = 20
+height = 20
+
+Visual: Italy
+x =482
+y =479
+width = 20
+height = 20
+
+
+
+Visual: Latvia
+x =640
+y =232
+width = 20
+height = 20
+
+Visual: Lithuania
+x =621
+y =264
+width = 20
+height = 20
+
+ourg
+
+
+
+
+
+Visual: Moldova
+x =697
+y =400
+width = 20
+height = 20
+
+Visual: Monaco
+x =400
+y =461
+width = 20
+height = 20
+
+Visual: Montenegro
+x =568
+y =473
+width = 20
+height = 20
+
+Visual: Netherlands
+x =379
+y =312
+width = 20
+height = 20
+
+Visual: Norway
+x =424
+y =172
+width = 20
+height = 20
+
+Visual: Poland
+x =555
+y =321
+width = 20
+height = 20
+
+Visual: Portugal
+x =177
+y =535
+width = 20
+height = 20
+
+Visual: Romania
+x =650
+y =422
+width = 20
+height = 20
+
+Visual: Russia
+x =876
+y =220
+width = 20
+height = 20
+
+Visual: Serbia
+x =593
+y =453
+width = 20
+height = 20
+
+Visual: Slovakia
+x =562
+y =377
+width = 20
+height = 20
+
+
+Visual: Spain
+x =248
+y =537
+width = 20
+height = 20
+
+Visual: Sweden
+x =544
+y =90
+width = 20
+height = 20
+
+Visual: Switzerland
+x =413
+y =404
+width = 20
+height = 20
+
+Visual: Ukraine
+x =736
+y =363
+width = 20
+height = 20
+
+Visual: United Kingdom
+x =280
+y =290
+width = 20
+height = 20

@@ -307,8 +307,7 @@ public class GUI extends JFrame implements MouseListener {
 
                 if (simulation == null) {
                     g.setColor(visual.updateColor(0));
-                } else {
-                    g.setColor(visual.updateColor(simulation.getPercentInfected(regionName)));
+                } else {                   g.setColor(visual.updateColor(simulation.getPercentInfected(regionName)));
                 }
                 
                 g.fillRect((int) (visual.x * scaler), (int) (visual.y * scaler), (int) (visual.width * scaler), (int) (visual.height * scaler));
