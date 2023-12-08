@@ -3,17 +3,20 @@ import java.util.Scanner;
 public class Region {
     final static int requiredParameters = 2;
     long population;
+    long vulnPopulation;
 
     String[] neighbors;
     long infected=0;
     int dead=0;
     int immune=0;
+    Response response;
 
 
     //constructed from file
     public Region(Scanner sc){
         //construct from file
         try{
+            response = new Response(3, 100); // Debug Response
             int flag = 0;
             read:
             while (sc.hasNextLine()){
@@ -24,6 +27,7 @@ public class Region {
                 switch (name.toLowerCase()) { //switch on name of parameter
                     case "population":
                         this.population = Integer.parseInt(value.replace(",",""));
+                        vulnPopulation = population; // Differentiate vulnerable vs. total population
                         flag = flag | 1;
                         break;
                     case "neighbors":
@@ -62,12 +66,26 @@ public class Region {
 
     public void addInfected(long newInfections){
         infected += newInfections;
-        if (infected>population) {
-            infected = population;
+        vulnPopulation -= infected; // Decrease vulnerable population
+        if (infected>vulnPopulation && vulnPopulation >= 0) {
+            infected += vulnPopulation;
+            vulnPopulation = 0;
         }
     }
 
     public double getPercentInfected(){
         return (double)infected/population;
+    }
+    // Potential immunity method
+    public void addImmune(){
+        immune += response.rateOfVaccination;
+        vulnPopulation -= immune;
+        if (immune > vulnPopulation && vulnPopulation >= 0)
+            immune += vulnPopulation;
+            vulnPopulation = 0; 
+    }
+
+    public void startVaccine(){
+
     }
 }

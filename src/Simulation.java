@@ -92,7 +92,7 @@ public class Simulation {
             }
         }
 
-        // Lopping through all regions, applying the spead.
+        // Looping through all regions, applying the spead.
         for(String regionName : regions.keySet()) {
             Region region = regions.get(regionName);
 

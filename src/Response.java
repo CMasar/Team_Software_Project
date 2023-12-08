@@ -3,6 +3,12 @@ public class Response {
     final static int requiredParameters = 2;
     int cureDevelopmentTime;
     int rateOfVaccination;
+    // Response constructor for testing
+    public Response (int cureDevelopmentTime, int rateOfVaccination){
+        this.cureDevelopmentTime = cureDevelopmentTime;
+        this.rateOfVaccination = rateOfVaccination;
+    }
+    // Main Constructor
     public Response(Scanner sc){
         //construct from file
         try{
